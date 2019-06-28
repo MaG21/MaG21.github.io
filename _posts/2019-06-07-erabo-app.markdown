@@ -1,0 +1,31 @@
+---
+title: ":zap: Erabo Pre-Selector App"
+layout: post
+date: 2019-06-07 18:40
+tag:
+  - Erabo
+  - MacOS
+  - AppStore
+image: https://erabo.app/assets/images/erabo-logo.svg
+headerImage: true
+projects: true
+hidden: true # don't count this post in blog pagination
+description: "Erabo Pre-Selector Application"
+category: project
+author: MaG
+externalLink: false
+---
+
+![Screenshot](/assets/images/erabo-screenshot.png)
+<figcaption class="caption">Erabo Pre-Selector</figcaption>
+
+[https://erabo.app](https://erabo.app).
+
+## App
+
+Erabo Pre-Selector is a native MacOS application I developed along side two other amazing colleges, one of them, Chris, has a [Website](https://chrisvpr.com/).
+
+With Erabo Pre-Selector, photographers can quickly pre-select out of hundreds or even thousand images in minimal time. It includes a built-in pre-selection flow, support for RAW images and can be used to stamp watermarks in bulk. On top of this, it's crazy fast.
+
+
+For more information visit [Erabo Pre-Selector Official Site](https://erabo.app).
