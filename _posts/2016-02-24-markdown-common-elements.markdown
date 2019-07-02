@@ -196,6 +196,15 @@ $(window).scroll(function() {
 });
 {% endhighlight %}
 
+A Swift Example:
+
+{% highlight swift %}
+// Sticky Header
+func change(name nameStr: String) {
+	print(name)
+}
+{% endhighlight %}
+
 [1]: http://daringfireball.net/projects/markdown/
 [2]: http://www.fileformat.info/info/unicode/char/2163/index.htm
 [3]: http://www.markitdown.net/

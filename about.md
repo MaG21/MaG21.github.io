@@ -10,32 +10,42 @@ I'm a passionate software developer that enjoys delivering robust software.
 
 <strong>2013</strong>
 <p>
-I had my <a target="_blank" href="https://marcos.do">own company</a>,
-where we, built a huge software commissioned by VisaNet Dominica. It was a service
-where I was in charge of the low level communication between POS terminals and the
-internal system. This service currently handles a couple thoudsand requests per
-day. <a href="https://www.visanetdominicana.com/productos-y-servicios/pos/soluciones-en-terminal/ncf-pos">Service</a>.
+At age 24 I had initiated my <a target="_blank" href="https://marcos.do">own company</a>, in which one of the most challenging
+projects we developed was a huge software commissioned by VisaNet Dominicana, the
+leading electronic payment service provider of the most prestigious banks and
+financial institutions in the country. As part of my responsibilities, I was in
+charge of the low level communication between POS terminals and the internal
+system of the service, which currently handles a couple thousand requests per day.
+<a href="https://www.visanetdominicana.com/productos-y-servicios/pos/soluciones-en-terminal/ncf-pos">Service</a>.
 </p>
 
 <strong>2016</strong>
 <p>
-I started working with a travel agency, where I was in charge of building
-the back-end of a small <a href="https://travelwise.com.do/hoteles-republica-dominicana">Booking Engine</a>.
-<br>
-Later on I had to create a service that consolidates the exchange rate for several
-currencies into one API, to achieve this, I developed a scrapper. <a target="_blank" href="https://github.com/MaG21/curry">Repo</a>.
+I started working with TravelWise the biggest player in the travel category and
+the only travel agency member of the reputed Virtuoso global network in the
+Dominican Republic, where I was in charge of building the back-end of a
+small-scale <a href="https://travelwise.com.do/hoteles-republica-dominicana">Booking Engine</a>. Later on I had to create a service that
+consolidates the exchange rate for several currencies into one API. to achieve
+this, I developed a scrapper. <a target="_blank" href="https://github.com/MaG21/curry">Repo</a>.
 </p>
 
 
 <strong>2018</strong>
 <p>
-In may 7th, I stated working a full time job at an adverticing agency called
-Publicis Dominicana. Here I work doing iOS development and web development.
+In may 7th, I started working a full time job at Publicis Dominicana, part of
+Publicis Groupe, the world’s third largest advertising communication network.
+Here I work doing iOS development and web development for top local clients in
+beverages, retail, finance and other major categories. At Publicis I work
+developing simpler software, in principle, yet more polished, fully designed
+and applying UX principles.
 </p>
 
 <p>
-At Publicis I work developing simpler software, in principle, yet more polished,
-fully designed and applying UX principles.
+As part of the developing changes in the business, I’m also helping a team
+launching Digitas Dominicana office. Digitas is a digital marketing agency,
+part of Publicis Media, one of four solution hubs within Publicis Groupe and it
+operates in over 25 countries. This achievement will help us offer our clients
+more robust solutions across digital media and software development.
 </p>
 
 <strong>2019</strong>
@@ -46,7 +56,7 @@ for photographers. Note that this is a personal project for us.
 </p>
 
 <p>
-For this app we applied many UX principles and did lost of usability testing with REAL users.
+For this app we applied many UX principles and did lots of usability testing with REAL users.
 <a href="#">See more about the development journy of this app</a>
 </p>
 
