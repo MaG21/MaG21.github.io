@@ -1,5 +1,5 @@
 ---
-title: "Comments about Erabo Pre-Selector Development Process"
+title: "Erabo Pre-Selector Development Process"
 layout: post
 date: 2019-06-20 20:24
 image: /assets/images/markdown.jpg
