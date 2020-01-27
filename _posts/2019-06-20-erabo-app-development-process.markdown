@@ -13,29 +13,61 @@ author: MaG
 description: "Erabo Pre-Selector Development Process"
 ---
 
+Currently I work with an incredible multidisciplinary team of 5 people. Long story short, three of us decided to work on a personal project called Erabo.
+
+1. Chris – Product designer.
+2. Manuel – myself.
+3. Ivan – Software Developer
+
+This post is about the development process of [Erabo Pre-Selector](https://erabo.app), which was the app I had to complete for this project.
+
+## About the project
+Erabo is an ecosystem where artists do digital delivery of their work to customers, something similar to [Pixieset](https://pixieset.com/) with some more tweaks and UX.
+
+## Design Phase
 ![Screenshot](/assets/images/erabo-evo.png)
 <figcaption class="caption">Evolution of Erabo Pre-Selector</figcaption>
 
 <br>
 
-In this post I'll be talking about some of the things we did in the process of creating a product; [Erabo Pre-Selector](https://erabo.app).
+Chris began the Design Sprint by interviewing photographers. Then using knowledge gathered from those interviews he came up with the following designs:
+1. Erabo Pre-Selector, draft 1. [pdf](/assets/pdf/erabo-1-draft.pdf){:target="_blank"}
+2. Erabo Pre-Selctor, final draft #5. [pdf](/assets/pdf/erabo-final.pdf){: target="_blank" }
 
-## Background
+Check out [Erabo Pre-Selector Official Site](https://erabo.app). Also Chris has a website <https://chrisvpr.com>.
 
-Currently I work with an incredible team of 5 people – myself included – comprised of two developers, two UI/UX and one Scrum Master. 
+## Testing and debugging process
 
-After some time working together, three of us decided to work on a personal project called Erabo Pre-Selector.
+Development can be a slow at times. I'm just goind to talk about the debugging process which I find more interesting of mentioning here.
 
-1. Chris – UI/UX and product designer.
-2. Manuel – Myself.
-3. Ivan – He is in charge of developing Erabo Gallery, a place where people could upload photo sessions and share with clients directly from the app.
+Before release I started profiling the app using Apple's profiling tool. To get useful insight I used ~2,100 high quality JPEGs to see how the application behaves under high loads.
+![Profiler](/assets/images/profiling-init.png){: class="bigger-image" }
 
-Note: As of time of writing, Erabo Gallery is under development.
+From the image above we can see there's too much work being done on the Main Thread, that's not good. Looking futher, we can conclude the Main Thread is losing too much time decoding images.
 
-## Design Phase
-Chris began the Design Sprint interviewing photographers at the agency. During the interview process I noticed (not related but remarkable not the least) people are willing to share and talk non-stop about the things they're passionated.
+![Caveat](/assets/images/caveat.png)
 
-Using knowlenge from the interviews Chris came up with the following designs:
+How do we fix it? Moving work away from the Main Thread. The Main Thread shouldn't be decoding all those images, a background queue should be used instead. Like this:
 
+![Caveat fixed](/assets/images/caveat-fixed.png)
 
-For more information visit [Erabo Pre-Selector Official Site](https://erabo.app).
+Lets see how does it looks after this little fix:
+
+![Profile Fixed](/assets/images/profiler-fixed.png){: class="bigger-image" }
+
+After many little tweaks here and there, the app started to perform quite well. Next day I receive the following image with from a beta user doing some real work.
+
+![Memory Leak](/assets/images/memory-leak.png)
+<figcaption class="caption">Screenshot from beta user</figcaption>
+
+<br>
+
+There's no doubt, that's a memory leak. To fix this bug I used Leaks from Instruments, unfortunately I forgot to take any screenshot from this process,
+but the issue was simpler than I thought. I had some retain cycles that where causing the memory leak, easy fix.
+
+wait, retain cycle?
+
+It's simple, Swift uses something called Automatic Reference Counting (ARC) to track and manage memory. ARC has a little problem, sometimes it needs information to decide when the life of an object ends, this happens when two objects hold references to each other. One object retains a reference of the other, hence the name, retain cycle.
+
+After this we were ready to start the App Store review process.
+
