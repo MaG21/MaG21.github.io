@@ -21,9 +21,6 @@ Currently I work with an incredible multidisciplinary team of 5 people. Long sto
 
 This post is about the development process of [Erabo Pre-Selector](https://erabo.app), which was the app I had to complete for this project.
 
-## About the project
-Erabo is an ecosystem where artists do digital delivery of their work to customers, something similar to [Pixieset](https://pixieset.com/) with some more tweaks and UX.
-
 ## Design Phase
 ![Screenshot](/assets/images/erabo-evo.png)
 <figcaption class="caption">Evolution of Erabo Pre-Selector</figcaption>
