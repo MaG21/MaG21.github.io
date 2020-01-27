@@ -1,5 +1,5 @@
 ---
-title: ":zap: Erabo Pre-Selector App"
+title: ":zap: Erabo App"
 layout: post
 date: 2019-06-07 18:40
 tag:
