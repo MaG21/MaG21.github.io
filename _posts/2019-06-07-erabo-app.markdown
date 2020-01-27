@@ -25,7 +25,7 @@ externalLink: false
 
 Erabo Pre-Selector is a native MacOS application I developed along side two other amazing colleges, one of them, Chris, has a [Website](https://chrisvpr.com/).
 
-With Erabo Pre-Selector, photographers can quickly pre-select out of hundreds or even thousand images in minimal time. It includes a built-in pre-selection flow, support for RAW images and can be used to stamp watermarks in bulk. On top of this, it's crazy fast.
+With Erabo Pre-Selector, photographers can quickly pre-select out of hundreds or even thousand images in minimal time. It includes a built-in pre-selection flow, support for RAW images and can be used to stamp watermarks in bulk. On top of that, it's crazy fast.
 
 
 For more information visit [Erabo Pre-Selector Official Site](https://erabo.app).
