@@ -37,22 +37,25 @@ Check out [Erabo Pre-Selector Official Site](https://erabo.app). Also Chris has 
 
 Development can be a slow at times. I'm just goind to talk about the debugging process which I find more interesting of mentioning here.
 
-Before release I started profiling the app using Apple's profiling tool. To get useful insight I used ~2,100 high quality JPEGs to see how the application behaves under high loads.
+Before release, I started profiling the app using Apple's profiling tool. To get useful insight I used ~2.1k high quality JPEGs (~16 MiB each) to see how the application behaves under high loads.
 ![Profiler](/assets/images/profiling-init.png){: class="bigger-image" }
 
-From the image above we can see there's too much work being done on the Main Thread, that's not good. Looking futher, we can conclude the Main Thread is losing too much time decoding images.
+From the image above we can see there's too much work being done on the Main Thread, that's not good. Looking futher, we can conclude the Main Thread is losing too much time decoding images. The following image shows the problematic line:
 
 ![Caveat](/assets/images/caveat.png)
 
-How do we fix it? Moving work away from the Main Thread. The Main Thread shouldn't be decoding all those images, a background queue should be used instead. Like this:
+How do we fix it?<br>
+Moving work away from the Main Thread. The Main Thread shouldn't be decoding all those images, a background queue should be used instead. Like this:
 
 ![Caveat fixed](/assets/images/caveat-fixed.png)
 
-Lets see how does it looks after this little fix:
+Lets see how does it look after this little fix:
 
 ![Profile Fixed](/assets/images/profiler-fixed.png){: class="bigger-image" }
 
-After many little tweaks here and there, the app started to perform quite well. Next day I receive the following image with from a beta user doing some real work.
+Remarkable. A profiler makes this whole process feels like I'm cheating.
+
+After many little tweaks here and there, the app started to perform quite well. Next day I received a screenshot from a beta photographer that was working on a project for a customer.
 
 ![Memory Leak](/assets/images/memory-leak.png)
 <figcaption class="caption">Screenshot from beta user</figcaption>
@@ -64,7 +67,7 @@ but the issue was simpler than I thought. I had some retain cycles that where ca
 
 wait, retain cycle?
 
-It's simple, Swift uses something called Automatic Reference Counting (ARC) to track and manage memory. ARC has a little problem, sometimes it needs information to decide when the life of an object ends, this happens when two objects hold references to each other. One object retains a reference of the other, hence the name, retain cycle.
+It's simple, Swift uses something called Automatic Reference Counting (ARC) to track and manage memory. ARC has a little problem, sometimes it needs information to decide when the life of an object ends, this happens when one object retains a reference of another object and vice versa, hence the name, retain cycle.
 
 After this we were ready to start the App Store review process.
 
