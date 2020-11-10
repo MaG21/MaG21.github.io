@@ -1,0 +1,17 @@
+---
+title: Multiple Textboxes
+layout: tools
+permalink: /tools/textboxes/
+---
+<div id="area"><div>
+
+<script>
+var area = document.getElementById('area');
+
+for(var i=0; i < 20; i++) {
+    var textarea = document.createElement('textarea');
+    textarea.style.width  = '270px';
+    textarea.style.height = '200px';
+    area.appendChild(textarea)
+}
+</script>

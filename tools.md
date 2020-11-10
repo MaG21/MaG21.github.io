@@ -6,6 +6,7 @@ layout: page
 # Day to Day tools
 <ul>
 <li><a href="textbox">Textbox</a></li>
+<li><a href="textboxes">Many Textboxes</a></li>
 <li><a href="strdiff">Diff Strings</a></li>
 </ul>
 
