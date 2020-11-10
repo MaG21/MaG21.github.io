@@ -1,9 +1,9 @@
 # main text of home
 name: Manuel Güílamo
-bio: "Wannabe minimalist. Simplicity is my north"
+bio: "Software developer, Cloud Developer, Architect, API Developer, minimalist simpatizer"
 
 # twitter summary info
-description: Personal website
+description: Manuel's Personal website
 
 # if it's an external image, update below for true
 # better with square images
@@ -39,7 +39,7 @@ disqus:
 # google: mygoogle
 # instagram: myinstagram
 # pinterest: mypinterest
-# linkedin: mylinkedin
+linkedin: https://www.linkedin.com/in/manuel-arturo-guilamo-66753091/
 # youtube: myyoutube
 # spotify: myspotify
 github: MaG21
