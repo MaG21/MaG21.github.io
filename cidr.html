@@ -1,0 +1,99 @@
+---
+title: Textbox
+layout: tools
+permalink: /tools/network-cidr
+---
+
+<div>CIDR: <input type="text" style="width: 20ex" id="inputCIDR" onkeydown="calcOnEnter()" onblur="doCalc();" value="10.0.0.0/8"/></div><br>
+Range:<br>
+<pre id="outputRange"/>Enter CIDR Above and hit tab to calculate.</pre><br>
+Log:<br>
+<pre id="outputLog"/><pre><br>
+<script>
+window.buffer      = new ArrayBuffer(28);
+window.bufferview  = new DataView(buffer);
+window.inputCIDR   = window.document.getElementById('inputCIDR');
+window.outputRange = window.document.getElementById('outputRange');
+window.outputLog   = window.document.getElementById('outputLog');
+window.print_error = function(msg) {
+    window.outputLog.textContent = msg;
+}
+
+function calcOnEnter() {
+    var e = event || window.event;
+    if(e.keyCode == 13) {
+        doCalc()
+    }
+}
+
+function doCalc() {
+    window.outputRange.textContent = '';
+    //  0-3  = ip
+    //  4-7  = mask
+    //  8-11 = ~mask
+    // 12-15 = first address
+    // 16-19 = broadcast address
+    // 20-23 = last address (bcast - 1)
+    // 24-27 = Canonical CIDR
+
+    // parse cidr
+    var input = window.inputCIDR.value;
+    var sep1 = input.split('/');
+    if (sep1.length != 2) return window.print_error('ERROR: there must be exactly one / in the input. zero is not enough. two is too many. THREE IS RIGHT OUT!');
+    var ipAddr = sep1[0];
+    var mask = parseInt(sep1[1]);
+
+    // verify mask
+    if (isNaN(mask)) return window.print_error('ERROR: "' + sep1[1] + '" is not a number (at least your browser doesn\'t think it is...)');
+    if (mask > 30) return window.print_error('ERROR: mask is larger than 30 (/31 is only valid as a point to point connection and /32 is a single address)');
+    if (mask < 0) return window.print_error('ERROR: mask is less than 0 (a negative mask doesn\'t even make sense...)');
+
+    // parse mask
+    window.bufferview.setUint32(4,0xFFFFFFFF << (32-mask));
+    window.bufferview.setUint32(8,0xFFFFFFFF >>> (mask));
+
+    // parse address
+    var sep2 = ipAddr.split('.');
+    if (sep2.length > 4) return window.print_error('ERROR: there can be no more than 4 octets in ipv4 (that means there should be only THREE dots...)');
+    for (var x in sep2) {
+        var xval = parseInt(x);
+        var val = parseInt(sep2[x]);
+        if (isNaN(val)) return window.print_error('ERROR: "' + sep2[x] + '" is not a number (at least your browser doesn\'t think it is...)');
+        if (val > 255) return window.print_error('ERROR: octet # ' + (x) + ' (' + val + ') is larger than 255 ("octet"... it means 8 BITS... (2^8)-1 = 255! max!!!)');
+        if (val < 0) return window.print_error('ERROR: octet # ' + (x) + ' (' + val + ') is less than 0 (ipv4 uses four UNSIGNED 8 bit integers, that means positive numbers only...)');
+        window.bufferview.setUint8(xval,val);
+    }
+
+    // get first valid address in subnet and cannonical CIDR
+    window.bufferview.setUint32(24,(window.bufferview.getUint32(0) & window.bufferview.getUint32(4)));
+    window.bufferview.setUint32(12,window.bufferview.getUint32(24) + 1);
+
+    // get broadcast address
+    window.bufferview.setUint32(16,(window.bufferview.getUint32(0) | window.bufferview.getUint32(8)));
+
+    // get last valid address in subnet
+    window.bufferview.setUint32(20,(window.bufferview.getUint32(16) - 1));
+
+    // show results
+    var printIp4 = function(offset) {
+        return         window.bufferview.getUint8(offset)
+    	   + '.' + window.bufferview.getUint8(++offset)
+    	   + '.' + window.bufferview.getUint8(++offset)
+    	   + '.' + window.bufferview.getUint8(++offset)
+    	   ;
+    }
+    window.outputRange.textContent =
+          '   First Address: ' + printIp4(12) + "\n"
+        + '    Last Address: ' + printIp4(20) + "\n"
+        + '     Subnet Mask: ' + printIp4(4)  + "\n"
+        + '   BCast Address: ' + printIp4(16) + "\n\n"
+        + '  Canonical CIDR: ' + printIp4(24) + '/' + mask + "\n\n"
+        + '           Range: ' + printIp4(12) + ' - ' + printIp4(20) + "\n"
+        + ' Avail Addresses: ' + (window.bufferview.getUint32(8) + 1) + "\n"
+        + 'Usable Addresses: ' + (window.bufferview.getUint32(8) - 1) + "\n"
+        ;
+
+    window.print_error('INFO: Success.');
+};
+window.inputCIDR.focus();
+</script>

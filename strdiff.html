@@ -1,0 +1,135 @@
+---
+title: Strings diff
+layout: tools
+permalink: /tools/strdiff
+---
+<style>
+.textbox textarea {
+  width: 680px;
+  height: 80px;
+}
+#outputNewStr {
+  width: 100vw;
+  min-height: 20vh;
+}
+
+#equal-strings {
+  max-width: 60px;
+  text-align: center;
+  background: #000;
+  color: #FFF;
+  visibility: hidden;
+}
+
+.textbox {
+  margin:10px 0;
+  zoom:1;
+}
+
+.textbox:after {
+  height:0;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  display:block;
+}
+.text {
+  margin-top: 30px;
+  width:300px;
+  margin-right:10px;
+  border-left: 0.5px solid #000;
+  border-top: 0.5px solid #000;
+  padding:10px;
+  min-height:80px;
+}
+.text-del {
+  text-decoration: line-through;
+  color: #A82400;
+  background-color: #E5BDB2;
+}
+.text-add {
+  background: #D1E1AD;
+  color: #405A04;
+}
+</style>
+
+<p>
+  Check if there are any differences between <strong>Text 1</strong> and <strong>Text 2</strong>.<br>
+  If there are differences, it will show you the edits needed to convert <strong>Text 2</strong> into <strong>Text 1</strong>.
+</p>
+<div class="textbox">
+  <p>Text 1</p>
+  <textarea id="oldStr" onchange="clearResults()"></textarea>
+  <br>
+  <p>Text 2</p>
+  <textarea id="newStr" onchange="clearResults()"></textarea>
+</div>
+
+<br>
+
+<input type="button" value="DIFF!" onclick="launch()" />
+
+<br>
+<p id="equal-strings">EQUAL</p>
+
+<div class="text" id="outputNewStr"></div>
+
+<script src="/assets/script/diff_match_patch.js"></script>
+<script>
+var dmp = new diff_match_patch();
+function setNoticeVisibility()
+{
+    var elem = document.getElementById('equal-strings')
+    elem.style.visibility = "visible"
+}
+
+function unsetNoticeVisibility()
+{
+    var elem = document.getElementById('equal-strings')
+    elem.style.visibility = "hidden"
+}
+
+function clearResults()
+{
+	unsetNoticeVisibility()
+        document.getElementById('outputNewStr').innerHTML = ""
+}
+
+function launch() {
+    var text1 = document.getElementById('oldStr').value;
+    var text2 = document.getElementById('newStr').value;
+
+    var d = dmp.diff_main(text2, text1);
+    dmp.diff_cleanupEfficiency(d);
+
+    var textStr = "";
+
+    var additions = 0;
+    var deletions = 0;
+
+    for (var i = 0, j = d.length; i < j; i++) {
+        var arr = d[i];
+        if (arr[0] == 0) {
+            textStr += arr[1].replace(/(?:\r\n|\r|\n)/g, '<br>');
+        } else {
+            tmpStr = arr[1].replace(/(?:\r\n|\r|\n)/g, '⏎<br>');
+
+	    if (arr[0] == -1) {
+                textStr   += "<span class='text-del'>" + tmpStr + "</span>";
+                deletions += 1;
+            } else {
+                textStr   += "<span class='text-add'>" + tmpStr + "</span>";
+                additions += 1;
+            }
+        }
+    }
+
+    if (0 == (additions+deletions)) {
+        setNoticeVisibility()
+    } else {
+	// we have DELTAs
+	unsetNoticeVisibility()
+        document.getElementById('outputNewStr').innerHTML = textStr
+    }
+}
+</script>

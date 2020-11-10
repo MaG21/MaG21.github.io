@@ -1,0 +1,17 @@
+---
+title: Textbox
+layout: tools
+permalink: /tools/url-escape/
+---
+<span>URL Encode</span>
+<input type="text" id="urlescape" oninput="window.doEscape();" style="width: 100%;"/><BR/>
+<br>
+<input type="button" value="encode" onclick="window.doEscape();"/>
+<br>
+<br>
+<div id="escData">Escaped data will show here when you type something in the box above (or click the button).</div>
+<script>
+function() {
+	window.document.getElementById('escData').textContent = encodeURIComponent(window.document.getElementById('urlescape').value);
+};
+</script>
